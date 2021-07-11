@@ -5,19 +5,19 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <!--Hibernate配置文件的根元素,其他文件要包含在其中-->
 <hibernate-configuration>
-    <!--表明以下的配置是针对session-factory配置的，SessionFactory是Hibernate中的一个类，这个类主要负责保存HIbernate的配置信息，以及对Session的操作-->
+    <!--表明以下的配置是针对session-factory配置的，SessionFactory是Hibernate中的一个类，这个类主要负责保存Hibernate的配置信息，以及对Session的操作-->
     <session-factory>
         <!-- 1，数据库连接信息： -->
         <!--配置数据库的驱动程序，Hibernate在连接数据库时，需要用到数据库的驱动程序-->
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver </property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <!--设置数据库的连接url:jdbc:mysql://localhost：3306/dbname,其中localhost表示mysql服务器名称，此处为本机，    dbname是数据库名-->
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernatedatabase</property>
         <!--连接数据库是用户名-->
-        <property name="hibernate.connection.username">root </property>
+        <property name="hibernate.connection.username">root</property>
         <!--连接数据库是密码-->
-        <property name="hibernate.connection.password">0606 </property>
+        <property name="hibernate.connection.password">0606</property>
         <!--hibernate.dialect 只是Hibernate使用的数据库方言,就是要用Hibernate连接那种类型的数据库服务器。-->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect </property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
         <!-- 以下信息可选 -->
         <!--jdbc.use_scrollable_resultset是否允许Hibernate用JDBC的可滚动的结果集。对分页的结果集。对分页时的设置非常有帮助-->
@@ -44,6 +44,8 @@
         <!--4，是否显示sql：-->
         <!--是否在后台显示Hibernate用到的SQL语句，开发时设置为true，便于差错，程序运行时可以在Eclipse的控制台显示Hibernate的执行Sql语句。项目部署后可以设置为false，提高运行效率-->
         <property name="hibernate.show_sql">true </property>
+        <!-- 设置隔离级别 1:read uncommit 2:read commited 3:repeatable read 4:serializable   -->
+        <property name="hibernate.connection.isolation">4</property>
         <!--输出底层sql语句格式 -->
         <property name="hibernate.format_sql">true</property>
         <!--
@@ -54,14 +56,24 @@
         -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
+
         <!-- 5,开启二级缓存使用： -->
 <!--        <property name="hibernate.cache.use_second_level_cache">true</property>-->
-<!--        <property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>-->
         <!-- 指定缓存产品所需的类 -->
-<!--        <property name="hibernate.cache.use_query_cache">true</property>&lt;!&ndash; 启用查询缓存 &ndash;&gt;-->
+<!--        <property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>-->
+        <!-- 启用查询缓存 -->
+<!--        <property name="hibernate.cache.use_query_cache">true</property>-->
 
 
-        <!--6 必选：指定映射文件，可映射多个映射文件-->
+        <!-- 必写 -->
+        <!--  hibernate session绑定线程  -->
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <!-- 指定映射文件，可映射多个映射文件-->
         <mapping resource="hibernateStudy/configs/bean/User.hbm.xml"/>
+        <mapping resource="hibernateStudy/configs/bean/onetomanymapping/Contact.hbm.xml"/>
+        <mapping resource="hibernateStudy/configs/bean/onetomanymapping/Customer.hbm.xml"/>
+        <mapping resource="hibernateStudy/configs/bean/manytomanymapping/GameUser.hbm.xml"/>
+        <mapping resource="hibernateStudy/configs/bean/manytomanymapping/Role.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
