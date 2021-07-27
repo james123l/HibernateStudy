@@ -4,8 +4,10 @@ package hibernateStudy.api.manytomanyoperation;
 import hibernateStudy.configs.bean.manytomanymapping.GameUser;
 import hibernateStudy.configs.bean.manytomanymapping.Role;
 import hibernateStudy.utils.HibernateUtils;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 
 // 两张表本身没有外键链接，通过连接外键到第三张表创建链接
 public class ManyToManyDemo {
